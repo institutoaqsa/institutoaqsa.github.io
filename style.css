@@ -22,10 +22,21 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--laranja);outline-of
 .menu a{display:block;color:#fff;text-decoration:none;padding:.5rem .5rem;border-radius:.4rem;font-size:.92rem}
 .menu a:hover{background:rgba(255,255,255,.12)}
 .menu a[aria-current="page"]{background:var(--ouro);color:var(--azul-esc);font-weight:700}
-@media(max-width:76rem){
+/* Menu horizontal por baixo do logótipo (computador e tablet) */
+.topo .wrap{flex-direction:column;align-items:stretch;gap:0;padding-top:.7rem;padding-bottom:.7rem}
+.topo .linha-marca{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.menu-btn{display:none}
+.menu{display:flex;flex-wrap:wrap;justify-content:center;gap:.15rem;margin-top:.6rem;border-top:1px solid rgba(255,255,255,.15);padding-top:.6rem}
+.menu a{white-space:nowrap}
+
+/* Telemóvel: o menu recolhe no botão "Menu" */
+@media(max-width:52rem){
+ .topo .wrap{flex-direction:row;align-items:center;justify-content:space-between;gap:1rem;padding-top:0;padding-bottom:0;min-height:4.5rem}
+ .topo .linha-marca{display:contents}
  .menu-btn{display:block;margin-left:auto}
- .menu{display:none;position:absolute;left:0;right:0;top:4.5rem;background:var(--azul-esc);flex-direction:column;padding:.5rem 1.25rem 1rem}
+ .menu{display:none;position:absolute;left:0;right:0;top:4.5rem;background:var(--azul-esc);flex-direction:column;flex-wrap:nowrap;justify-content:flex-start;padding:.5rem 1.25rem 1rem;margin:0;border-top:0}
  .menu.aberto{display:flex}
+ .menu a{white-space:normal}
 }
 
 /* herói: fotos a rolar como fundo */

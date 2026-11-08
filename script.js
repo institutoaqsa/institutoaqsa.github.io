@@ -24,8 +24,10 @@ const ligacoes = PAGINAS.map(p =>
 
 document.getElementById("topo").innerHTML = `
   <div class="topo"><div class="wrap">
-    <a class="marca" href="index.html"><img class="logo" src="logo.jpg" alt="" width="58" height="54">ITMPA</a>
-    <button class="menu-btn" aria-expanded="false" aria-controls="menu">Menu</button>
+    <div class="linha-marca">
+      <a class="marca" href="index.html"><img class="logo" src="logo.jpg" alt="" width="58" height="54">ITMPA</a>
+      <button class="menu-btn" aria-expanded="false" aria-controls="menu">Menu</button>
+    </div>
     <nav aria-label="Principal"><ul class="menu" id="menu">${ligacoes}</ul></nav>
   </div></div>`;
 
