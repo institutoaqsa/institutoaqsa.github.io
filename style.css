@@ -137,3 +137,6 @@ ul.simples li{margin:.35rem 0}
 .rodape-base .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem}
 .rodape-base p{margin:0}
 @media(max-width:40rem){.rodape-base{padding-bottom:4.5rem}}
+
+.item ul{margin:.3rem 0 0;padding-left:1.1rem}
+.item ul li{margin:.3rem 0}
