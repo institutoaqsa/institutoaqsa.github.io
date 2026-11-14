@@ -140,3 +140,6 @@ ul.simples li{margin:.35rem 0}
 
 .item ul{margin:.3rem 0 0;padding-left:1.1rem}
 .item ul li{margin:.3rem 0}
+
+.noticia video{display:block;width:100%;height:auto;aspect-ratio:640/352;background:#000;border-radius:.4rem;margin:.7rem 0}
+.noticia h3{margin:.2rem 0 .3rem}

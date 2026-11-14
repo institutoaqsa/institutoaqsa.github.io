@@ -14,7 +14,38 @@ const PAGINAS = [
 
 // Notícias: acrescenta objetos aqui e aparecem na página Notícias.
 // Exemplo: { data: "2026-11-07", titulo: "Abertura de inscrições", texto: "..." }
-const NOTICIAS = [];
+const NOTICIAS = [
+  {
+    data: "2021-12-11", dataTexto: "Dezembro de 2021",
+    titulo: "Instituto Mubhangue gradua mais de 150 formandos",
+    texto: "Mais de 150 estudantes concluíram a sua formação e receberam o certificado numa cerimónia de graduação realizada num sábado, segundo a reportagem televisiva. As imagens mostram a sala da cerimónia, os graduados com as suas faixas e as declarações de formandos à imprensa.",
+    video: "video01.mp4", poster: "poster01.jpg"
+  },
+  {
+    data: "", dataTexto: "",
+    titulo: "Graduados e responsáveis falam à imprensa na cerimónia de graduação",
+    texto: "Equipas de televisão acompanharam a cerimónia de graduação do instituto e recolheram declarações de graduados e de responsáveis, com os formandos de faixa sentados no recinto da cerimónia.",
+    video: "video02.mp4", poster: "poster02.jpg"
+  },
+  {
+    data: "2021-12-04", dataTexto: "Dezembro de 2021",
+    titulo: "Exames de recorrência: segunda época no Instituto Mubhangue",
+    texto: "Os exames de recorrência, da segunda época, dão aos formandos uma nova oportunidade de avaliação. A reportagem mostra as salas de prova e recolhe declarações de participantes no instituto.",
+    video: "video03.mp4", poster: "poster03.jpg"
+  },
+  {
+    data: "2021-11-30", dataTexto: "Novembro de 2021",
+    titulo: "Exames finais: formandos falam à reportagem",
+    texto: "Numa nova reportagem sobre os exames finais, formandos do Instituto de Formação Mubhangue, hoje Instituto AQSA, partilham a sua experiência com a equipa de reportagem, nas instalações do instituto.",
+    video: "video04.mp4", poster: "poster04.jpg"
+  },
+  {
+    data: "2021-11-29", dataTexto: "Novembro de 2021",
+    titulo: "Exames finais: reportagem acompanha os formandos do Instituto Mubhangue",
+    texto: "Uma reportagem televisiva acompanhou a realização dos exames finais no Instituto de Formação Mubhangue, hoje Instituto AQSA. A equipa esteve junto das salas de prova e conversou com formandos durante a avaliação.",
+    video: "video05.mp4", poster: "poster05.jpg"
+  },
+];
 
 const atual = document.body.dataset.pagina;
 
@@ -80,8 +111,12 @@ if (lista) {
     lista.innerHTML = `<p class="vazio-msg">Ainda não há notícias publicadas. Acompanhe as atividades mais recentes na nossa <a href="https://www.facebook.com/profile.php?id=100063816139426" target="_blank" rel="noopener">página do Facebook</a>.</p>`;
   } else {
     lista.innerHTML = NOTICIAS.map(n => `
-      <article class="noticia"><time datetime="${n.data}">${new Date(n.data).toLocaleDateString("pt-PT")}</time>
-      <h3>${n.titulo}</h3><p>${n.texto}</p></article>`).join("");
+      <article class="noticia">
+        ${n.dataTexto ? `<time datetime="${n.data}">${n.dataTexto}</time>` : ""}
+        <h3>${n.titulo}</h3>
+        ${n.video ? `<video controls preload="none" playsinline poster="${n.poster}"><source src="${n.video}" type="video/mp4">O seu navegador não suporta a reprodução de vídeo.</video>` : ""}
+        <p>${n.texto}</p>
+      </article>`).join("");
   }
 }
 
