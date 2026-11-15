@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Consultar pré-inscrição | ITMPA</title>
+<meta name="description" content="Consulte o estado da sua pré-inscrição no Instituto Técnico Médio Profissional AQSA (ITMPA).">
+<meta name="robots" content="noindex">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src https://script.google.com https://script.googleusercontent.com; base-uri 'none'; form-action 'none'">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef2f5;--card:#fff;--tx:#12263a;--mut:#58697c;--cor:#0b3c5d;--bd:#cfd9e3;--btn-tx:#fff;--erro:#b3261e}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1722;--card:#15232f;--tx:#e6eef6;--mut:#9db0c3;--cor:#7cc0f0;--bd:#2b3d4e;--btn-tx:#06131d;--erro:#ff9a90}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--tx);font:17px/1.55 "Nunito Sans",system-ui,sans-serif}
+main{max-width:520px;margin:0 auto;padding:28px 18px 48px}
+h1,h2{font-family:Bitter,Georgia,serif;line-height:1.2;margin:0}
+h1{font-size:1.75rem;color:var(--cor)}
+.sub{color:var(--mut);margin:8px 0 24px}
+label{display:block;font-weight:700;margin:16px 0 6px}
+input{width:100%;font:inherit;padding:13px 14px;border:1.5px solid var(--bd);border-radius:6px;background:var(--card);color:var(--tx)}
+input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--cor);outline-offset:2px}
+button{width:100%;margin-top:22px;padding:14px;font:700 1.05rem "Nunito Sans",sans-serif;background:var(--cor);color:var(--btn-tx);border:0;border-radius:6px;cursor:pointer}
+button:disabled{opacity:.6;cursor:wait}
+#erro{color:var(--erro);font-weight:600;margin:14px 0 0}
+.res{background:var(--card);border:1px solid var(--bd);border-radius:6px;margin-top:28px}
+.topo{padding:22px 20px 26px}
+.topo h2{font-size:1.2rem;margin-bottom:12px}
+.pill{display:inline-block;margin:0;padding:8px 14px;border-radius:999px;font-weight:700}
+.amar{background:#fff0b8;color:#5c4500}.lar{background:#ffd9b0;color:#6a3200}
+.verde{background:#c9efd2;color:#0f4a22}.azul{background:#cfe6ff;color:#0b3a6b}
+.msg{margin:14px 0 0}
+.corte{position:relative;border-top:2px dashed var(--bd)}
+.corte::before,.corte::after{content:"";position:absolute;top:-11px;width:20px;height:20px;border-radius:50%;background:var(--bg)}
+.corte::before{left:-11px}.corte::after{right:-11px}
+dl{margin:0;padding:22px 20px 8px;display:grid;gap:14px}
+dt{font-size:.85rem;color:var(--mut)}
+dd{margin:0;font-weight:700;overflow-wrap:anywhere}
+.ajuda{padding:6px 20px 22px;color:var(--mut);font-size:.95rem}
+footer{margin-top:32px;color:var(--mut);font-size:.95rem}
+footer p{margin:0 0 6px}
+a{color:var(--cor);font-weight:600}
+</style>
+</head>
+<body>
+<main>
+  <h1>Consultar pré-inscrição</h1>
+  <p class="sub">Escreva o código que recebeu ao enviar a ficha e o telefone que indicou na pré-inscrição.</p>
+
+  <form id="f" novalidate>
+    <label for="ref">Código da pré-inscrição</label>
+    <input id="ref" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="40" placeholder="Código recebido" required>
+    <label for="tel">Telefone</label>
+    <input id="tel" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="84 123 4567" required>
+    <button id="btn" type="submit">Consultar</button>
+    <p id="erro" role="alert" hidden></p>
+  </form>
+
+  <section id="res" class="res" hidden aria-live="polite">
+    <div class="topo">
+      <h2>Pré-inscrição encontrada</h2>
+      <p id="estado" class="pill"></p>
+      <p id="msg" class="msg"></p>
+    </div>
+    <div class="corte"></div>
+    <dl id="dl"></dl>
+    <p class="ajuda">Guarde o código. Pode consultar esta página sempre que quiser.</p>
+  </section>
+
+  <footer>
+    <p>Dúvidas? Fale connosco pelo WhatsApp ou por chamada: <a href="https://wa.me/258875850789">+258 87 585 0789</a></p>
+    <p>E-mail: <a href="mailto:info.institutoaqsa@gmail.com">info.institutoaqsa@gmail.com</a></p>
+    <p><a href="/Inscricao/">Fazer uma nova pré-inscrição</a></p>
+  </footer>
+</main>
+
+<script>
+const API = "https://script.google.com/macros/s/AKfycbz9XrkTzXniezFlEDnHCZWf7lKcHIQFERD9axQkmBEcepwOGrPGeoLUYDz7USoONUzV/exec";
+
+const $ = id => document.getElementById(id);
+const CAMPOS = [["Referência","ref"],["Nome","nome"],["Curso (1.ª opção)","curso1"],["Curso (2.ª opção)","curso2"],["Período","periodo"],["Telefone","tel"],["Data de envio","data"]];
+const ICONE = {amar:"🟡", lar:"🟠", verde:"🟢", azul:"🔵"};
+
+function classeEstado(t){
+  t = t.toLowerCase();
+  if (t.includes("falta")) return "lar";
+  if (t.includes("confirmada")) return "azul";
+  if (t.includes("validada")) return "verde";
+  return "amar";
+}
+function erro(t){ const e = $("erro"); e.textContent = t; e.hidden = !t; }
+
+function mostrar(f){
+  const dl = $("dl"); dl.replaceChildren();
+  CAMPOS.forEach(([rotulo, k]) => {
+    if (!f[k]) return;
+    const dt = document.createElement("dt"); dt.textContent = rotulo;
+    const dd = document.createElement("dd"); dd.textContent = f[k];
+    dl.append(dt, dd);
+  });
+  const estado = f.estado || "Pendente", c = classeEstado(estado), p = $("estado");
+  p.className = "pill " + c;
+  p.textContent = ICONE[c] + " " + estado;
+  $("msg").textContent = f.mensagem || "";
+  $("res").hidden = false;
+  $("res").scrollIntoView({behavior: "smooth", block: "start"});
+}
+
+$("f").addEventListener("submit", async ev => {
+  ev.preventDefault();
+  erro(""); $("res").hidden = true;
+  const ref = $("ref").value.trim(), tel = $("tel").value.trim();
+  if (ref.length < 4 || tel.replace(/\D/g, "").length < 9) return erro("Preencha o código e o telefone completo.");
+  const b = $("btn"); b.disabled = true; b.textContent = "A consultar…";
+  const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 25000);
+  try {
+    const r = await fetch(API, {method: "POST", body: JSON.stringify({acao: "consultar", ref, tel}), signal: ctl.signal});
+    const j = await r.json();
+    if (j.ok) mostrar(j.ficha); else erro(j.erro || "Não foi possível consultar. Tente novamente.");
+  } catch (x) {
+    erro("Sem ligação ou o serviço demorou demasiado. Tente novamente.");
+  } finally {
+    clearTimeout(t); b.disabled = false; b.textContent = "Consultar";
+  }
+});
+</script>
+</body>
+</html>
