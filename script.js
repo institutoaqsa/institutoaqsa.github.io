@@ -9,6 +9,7 @@ const PAGINAS = [
   { id: "graduacoes", nome: "Graduações", ficheiro: "graduacoes.html" },
   { id: "regulamento", nome: "Regulamento", ficheiro: "regulamento.html" },
   { id: "contactos", nome: "Contactos", ficheiro: "contactos.html" },
+  { id: "consultar", nome: "Consultar inscrição", ficheiro: "consultar.html" },
   { id: "inscricao", nome: "Fazer inscrição", ficheiro: "https://institutoaqsa.github.io/Inscricao/", destaque: true },
 ];
 
