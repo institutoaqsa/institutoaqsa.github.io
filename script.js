@@ -9,7 +9,6 @@ const PAGINAS = [
   { id: "graduacoes", nome: "Graduações", ficheiro: "graduacoes.html" },
   { id: "regulamento", nome: "Regulamento", ficheiro: "regulamento.html" },
   { id: "contactos", nome: "Contactos", ficheiro: "contactos.html" },
-  { id: "consultar", nome: "Consultar inscrição", ficheiro: "consultar.html" },
   { id: "inscricao", nome: "Fazer inscrição", ficheiro: "https://institutoaqsa.github.io/Inscricao/", destaque: true },
 ];
 
@@ -70,10 +69,6 @@ btn.addEventListener("click", () => {
   btn.setAttribute("aria-expanded", aberto);
 });
 
-const ligacoesRodape = PAGINAS.map(p =>
-  `<li><a href="${p.ficheiro}"${p.destaque ? "" : ""}>${p.nome}</a></li>`
-).join("");
-
 document.getElementById("rodape").innerHTML = `
   <footer class="rodape">
     <div class="wrap grelha">
@@ -81,10 +76,6 @@ document.getElementById("rodape").innerHTML = `
         <strong>Instituto Técnico Médio Profissional AQSA</strong>
         <p>Inovação educacional, rigor profissional e transformação de futuros.</p>
         <p>Juntos na luta pelo desenvolvimento de Moçambique, criando o auto-emprego.</p>
-      </div>
-      <div>
-        <strong>Navegação</strong>
-        <ul class="rodape-lista">${ligacoesRodape}</ul>
       </div>
       <div>
         <strong>Contactos</strong>
