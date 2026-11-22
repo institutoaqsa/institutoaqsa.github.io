@@ -121,7 +121,9 @@ $("f").addEventListener("submit", async ev => {
     const j = await r.json();
     if (j.ok) mostrar(j.ficha); else erro(j.erro || "Não foi possível consultar. Tente novamente.");
   } catch (x) {
-    erro("Sem ligação ou o serviço demorou demasiado. Tente novamente.");
+    //erro("Sem ligação ou o serviço demorou demasiado. Tente novamente.");
+    erro("Sem ligação (" + String(x && x.message ? x.message : x) + "). Endereço termina em " + API.slice(-12));
+    
   } finally {
     clearTimeout(t); b.disabled = false; b.textContent = "Consultar";
   }
